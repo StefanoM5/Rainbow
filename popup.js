@@ -27,22 +27,25 @@ function downloadCheckedLinks2() {
 
 function winRewardsSearchs() {
 	const code = `
-	(function c() 
+	(async function c() 
 		{
-			var linksToOpen = 10;
+			var linksToOpen = 20;
 			var myWin = [];
 			
+            async function delay(time) {
+              return new Promise(resolve => setTimeout(resolve, time));
+            };
+
 			function makeid(length) {
 			   var result           = '';
-			   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ';
-			   var charactersLength = characters.length;
+			   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 			   for ( var i = 0; i < length; i++ ) {
-				  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+				  result += characters.charAt(Math.floor(Math.random() * characters.length));
 			   }
 			   return result;
 			};
-			
-			function openNewWin(research, i)
+
+			async function openNewWin(research, i)
 			{
 				  setTimeout(() => {
 						myWin[i] = window.open('https://www.bing.com/search?q='+research, 'mypopup'+research, 'top=30, left=450, height=600, width=620, resizable=1, scrollbars=1, status=1, toolbar=0, location=1','');
@@ -50,7 +53,7 @@ function winRewardsSearchs() {
 						
 						setTimeout(() => {
 							myWin[i].close();
-						}, 8000
+						}, 7000
 						); 
 						
 				  }, 100*i
@@ -58,9 +61,10 @@ function winRewardsSearchs() {
 			};
 
 			for (let i = 0; i < linksToOpen; i++) {
-			  let search = makeid(6);
+			  let search = makeid(3) +' ' +makeid(3);
 			  console.log(search);
 			  openNewWin(search, i);
+              await delay(250);
 			}
 		}
 	)()`; 
