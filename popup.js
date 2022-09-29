@@ -13,23 +13,35 @@ function downloadCheckedLinks() {
 }
 
 function downloadCheckedLinks2() {
-	const code = `
+    const code = `
 	(function b() 
 		{
 			document.querySelector("#article-body").style="overflow:hidden;display:inline-block !important";
 			document.querySelector("#ph-paywall").style.display = 'none';
 		}
-	)()`; 
-	chrome.tabs.executeScript({ code }, function(result) {
-		//alert('ciao');
-	});	
+	)()`;
+    chrome.tabs.executeScript({ code }, function (result) {
+        //alert('ciao');
+    });
+}
+
+function winRewardsOpenPage() {
+    const code = `
+	(function () 
+		{
+			window.open('https://rewards.microsoft.com', '');
+		}
+	)()`;
+    chrome.tabs.executeScript({ code }, function (result) {
+        //alert('ciao');
+    });
 }
 
 function winRewardsSearchs() {
 	const code = `
 	(async function c() 
 		{
-			var linksToOpen = 20;
+			var linksToOpen = 30;
 			var myWin = [];
 			
             async function delay(time) {
@@ -45,7 +57,11 @@ function winRewardsSearchs() {
 			   return result;
 			};
 
-			async function openNewWin(research, i)
+            function getRandomInt(min, max) {
+              return Math.random() * (max - min) + min;
+            };
+
+			function openNewWin(research, i)
 			{
 				  setTimeout(() => {
 						myWin[i] = window.open('https://www.bing.com/search?q='+research, 'mypopup'+research, 'top=30, left=450, height=600, width=620, resizable=1, scrollbars=1, status=1, toolbar=0, location=1','');
@@ -61,10 +77,10 @@ function winRewardsSearchs() {
 			};
 
 			for (let i = 0; i < linksToOpen; i++) {
-			  let search = makeid(3) +' ' +makeid(3);
+			  let search = makeid(getRandomInt(2,7)) +' ' +makeid(getRandomInt(2,7));
 			  console.log(search);
 			  openNewWin(search, i);
-              await delay(250);
+              await delay(200);
 			}
 		}
 	)()`; 
@@ -77,14 +93,18 @@ function winRewardsOpenLinks() {
 	const code = `
 	(function d() 
 		{
-			document.querySelector("#daily-sets > mee-card-group:nth-child(7) > div > mee-card:nth-child(2) > div > card-content > mee-rewards-daily-set-item-content > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			document.querySelector("#daily-sets > mee-card-group:nth-child(7) > div > mee-card:nth-child(3) > div > card-content > mee-rewards-daily-set-item-content > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			document.querySelector("#more-activities > div > mee-card.ng-scope.ng-isolate-scope.c-card.f-double > div > card-content > mee-rewards-more-activities-card-item > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			document.querySelector("#more-activities > div > mee-card.ng-scope.ng-isolate-scope.c-card.f-double > div > card-content > mee-rewards-more-activities-card-item > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			document.querySelector("#more-activities > div > mee-card:nth-child(2) > div > card-content > mee-rewards-more-activities-card-item > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			document.querySelector("#more-activities > div > mee-card:nth-child(3) > div > card-content > mee-rewards-more-activities-card-item > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			document.querySelector("#daily-sets > mee-card-group:nth-child(7) > div > mee-card.ng-scope.ng-isolate-scope.c-card.f-double > div > card-content > mee-rewards-daily-set-item-content > div > div.actionLink.x-hidden-vp1 > a > span > ng-transclude").click();
-			
+            document.querySelector("#daily-sets > mee-card-group:nth-child(7) > div > mee-card:nth-child(1) > div > card-content > mee-rewards-daily-set-item-content > div > a > div.actionLink.x-hidden-vp1").click();
+            document.querySelector("#daily-sets > mee-card-group:nth-child(7) > div > mee-card:nth-child(2) > div > card-content > mee-rewards-daily-set-item-content > div > a > div.actionLink.x-hidden-vp1").click();
+            document.querySelector("#daily-sets > mee-card-group:nth-child(7) > div > mee-card:nth-child(3) > div > card-content > mee-rewards-daily-set-item-content > div > a > div.actionLink.x-hidden-vp1").click();
+            
+            document.querySelector("#more-activities > div > mee-card:nth-child(1) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();         
+            document.querySelector("#more-activities > div > mee-card:nth-child(2) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();
+            document.querySelector("#more-activities > div > mee-card:nth-child(3) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();         
+            document.querySelector("#more-activities > div > mee-card:nth-child(4) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();
+            document.querySelector("#more-activities > div > mee-card:nth-child(5) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();   
+            document.querySelector("#more-activities > div > mee-card:nth-child(13) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();   
+            document.querySelector("#more-activities > div > mee-card:nth-child(14) > div > card-content > mee-rewards-more-activities-card-item > div > a").click();        
+
 		}
 	)()`; 
 	chrome.tabs.executeScript({ code }, function(result) {
@@ -94,8 +114,9 @@ function winRewardsOpenLinks() {
 
 
 window.onload = function() {
-  document.getElementById('clearPaywall').onclick = downloadCheckedLinks;
-  document.getElementById('clearPaywall2').onclick = downloadCheckedLinks2;
-  document.getElementById('clearPaywall3').onclick = winRewardsSearchs;
-  document.getElementById('clearPaywall4').onclick = winRewardsOpenLinks;
+  //document.getElementById('clearPaywall').onclick = downloadCheckedLinks;
+  //  document.getElementById('clearPaywall2').onclick = downloadCheckedLinks2;
+    document.getElementById('open_reward_page').onclick = winRewardsOpenPage;
+    document.getElementById('find_on_bing').onclick = winRewardsSearchs;
+    document.getElementById('open_links').onclick = winRewardsOpenLinks;
 };

@@ -1,16 +1,16 @@
 {
-  "name": "Rainbow Page Handler",
-  "description": "Cambia sfondo o colore alle pagine web",
+  "name": "Microsoft Rewards Page Handler",
+  "description": "Facilita Microsoft Rewards",
   "version": "1.7",
   "manifest_version": 2,
   "browser_action": {
-   "default_icon": {
+    "default_icon": {
       "16": "images/rainbow_16.png",
       "32": "images/rainbow_32.png",
       "48": "images/rainbow_48.png",
       "144": "images/rainbow_144.png"
     },
-   "default_popup": "popup.html"
+    "default_popup": "popup.html"
   },
   "icons": {
     "16": "images/rainbow_16.png",
@@ -19,6 +19,6 @@
     "144": "images/rainbow_144.png"
   },
   "minimum_chrome_version": "16.0.884",
-  "permissions": ["activeTab"]
-  
+  "permissions": [ "activeTab" ]
+
 }
